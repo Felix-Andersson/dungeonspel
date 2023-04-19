@@ -1,8 +1,5 @@
-<<<<<<< Updated upstream
-=======
 
 
->>>>>>> Stashed changes
 #Huvudkaraktär
 $health = 100
 $armor = 0
@@ -10,8 +7,8 @@ $weapon = 3
 $money = 0
 
 #enemies
-$enemies = ["Goblin", "Skeleton", "Microsoft Bengt", "Shaman"]
-$bosses = ["Troll", "Skeleton King", "Orc Lord"]
+$enemies = ["goblin", "skeleton", "microsoft bengt", "shaman"]
+$bosses = ["Troll", "Skeleton King", "Orc lord"]
 $ultimateBoss = "Mattias"
 
 #enemy stats
@@ -92,7 +89,9 @@ def shop!(user_input, health, armor, weapon)
     isQuit(user_input)
     while user_input != "leave"
         puts "Nasir: What do you need traveler?"
-            
+        puts "--- --- --- --- --- --- --- ---"
+        puts "  Attack[1]  Eat[2]  Leave[3]"
+        puts "--- --- --- --- --- --- --- ---"
     end
 end
 
@@ -108,25 +107,20 @@ def fight!(enemy, health, weapon, armor)
         puts "He ded."
     end
 end
-
-def writeLine(string)
-    temp = string+"\n"
-    temp.each_char {|c| putc c ; sleep 0.02}
-end
     
 def main()
     
     user_input = ""
-    writeLine("Ah we have finally found a teknikare, what is thou name?")
+    puts "Narrator: Ah we have finally found a teknikare, what is thou name?"
     name = gets.chomp
     while isQuit(user_input)
-        writeLine("Mattias: I've heard that there is an impostor among us, stay alert!")
-        writeLine("*Jakob comes running*")
-        writeLine("Jakob: Big trouble up ahead, I spotted some goblins vent!")
-        writeLine("Mattias: We must stop them, ahem, I mean you must stop them #{name}!\n")
+        puts "Mattias: I've heard that there is an impostor among us, stay alert!"
+        puts "Narrator: Jakob comes running"
+        puts "Jakob: Big trouble up ahead, I spotted some goblins vent!"
+        puts "Mattias: We must stop them, ahem, I mean you must stop them #{name}!"
         enemy = $enemies[rand($enemies.length)]
-        writeLine("A #{enemy} notices you!")
-        writeLine("*The #{enemy} shrieks!*")
+        puts "A #{enemy} notices you!"
+        puts "*The #{enemy} shrieks!*"
         
         fight!(enemy, $health, $weapon, $armor)
         user_input = gets.chomp
