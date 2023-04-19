@@ -1,6 +1,4 @@
-
-
-baen#Huvudkaraktär
+#Huvudkaraktär
 $health = 100
 $armor = 0
 $weapon = 3
