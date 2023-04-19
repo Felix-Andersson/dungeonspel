@@ -1,5 +1,3 @@
-
-
 #Huvudkaraktär
 $health = 100
 $armor = 0
@@ -7,7 +5,7 @@ $weapon = 3
 $money = 0
 
 #enemies
-$enemies = ["goblin", "skeleton", "microsoft bengt", "shaman"]
+$enemies = ["Goblin", "Skeleton", "Microsoft Bengt", "Shaman"]
 $bosses = ["Troll", "Skeleton King", "Orc lord"]
 $ultimateBoss = "Mattias"
 
@@ -107,20 +105,25 @@ def fight!(enemy, health, weapon, armor)
         puts "He ded."
     end
 end
+
+def writeLine(string)
+    temp = string+"\n"
+    temp.each_char {|c| putc c ; sleep 0.02}
+end
     
 def main()
     
     user_input = ""
-    puts "Narrator: Ah we have finally found a teknikare, what is thou name?"
+    writeLine("Narrator: Ah we have finally found a teknikare, what is thou name?")
     name = gets.chomp
     while isQuit(user_input)
-        puts "Mattias: I've heard that there is an impostor among us, stay alert!"
-        puts "Narrator: Jakob comes running"
-        puts "Jakob: Big trouble up ahead, I spotted some goblins vent!"
-        puts "Mattias: We must stop them, ahem, I mean you must stop them #{name}!"
+        writeLine("Mattias: I've heard that there is an impostor among us, stay alert!")
+        writeLine("Narrator: Jakob comes running")
+        writeLine("Jakob: Big trouble up ahead, I spotted some goblins vent!")
+        writeLine("Mattias: We must stop them, ahem, I mean you must stop them #{name}!")
         enemy = $enemies[rand($enemies.length)]
-        puts "A #{enemy} notices you!"
-        puts "*The #{enemy} shrieks!*"
+        writeLine("A #{enemy} notices you!")
+        writeLine("*The #{enemy} shrieks!*")
         
         fight!(enemy, $health, $weapon, $armor)
         user_input = gets.chomp
