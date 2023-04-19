@@ -1,3 +1,8 @@
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 #Huvudkaraktär
 $health = 100
 $armor = 0
