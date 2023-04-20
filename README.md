@@ -1,2 +1,2 @@
 # dungeonspel
-programmering1 spel
+text baserat story/adventure spel
