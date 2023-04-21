@@ -82,14 +82,24 @@ def isQuit(input)
 end
 
 # input loop
+def is_shop(user_input)
+    if user_input.downcase != "shop"
+        return false
+    end
+    return true
+end
+
+
+
 def shop!(user_input, health, armor, weapon)
     user_input = ""
-    isQuit(user_input)
+    isQuit($user_input)
     while user_input != "leave"
         puts "Nasir: What do you need traveler?"
         puts "--- --- --- --- --- --- --- ---"
-        puts "  Attack[1]  Eat[2]  Leave[3]"
+        puts "  Weapons[1]  Armor[2]  Food[3]"
         puts "--- --- --- --- --- --- --- ---"
+        user_input = gets.chomp
     end
 end
 
@@ -129,7 +139,14 @@ def main()
         user_input = gets.chomp
         isQuit(user_input)
     end
-    
+
+
+    user_input = ""
+    while is_shop(user_input)
+        shop!(user_input, $health, $weapon, $armor)
+        user_input = gets.chomp
+        isQuit(user_input)
+    end
 
     
 
