@@ -20,13 +20,34 @@ def shop!(user_input, health, armor, weapon)
         user_input = gets.chomp
         if user_input.downcase == "quit" || user_input.downcase == "exit" #|| input == 4
             break
+        elsif user_input == "1"
+            showWeapons()
         end
     end
 end
 
-def isShop(user_input)
+def showWeapons()
+    i=0
+    puts "Nasir: What do you need traveler?"
+    puts "--- --- --- --- --- --- --- ---"
+    while i<$weapons.length
+        print $weapons[i][0]
+        puts " [#{i+1}]"
+        i += 1
+    end
+    puts "--- --- --- --- --- --- --- ---"
 
-    if user_input.downcase != "shop"
+    user_input = gets.chomp
+    isQuit(user_input)
+    if user_input == "1"
+        $inventory << $weapons[0]
+        p $inventory
+    end
+
+end
+
+def isShop(user_input)
+    if user_input.downcase != "yes"
         return false
     end
     return true
@@ -35,13 +56,14 @@ end
 def fight!(enemy, health, weapon, armor)
     user_input = ""
     isQuit(user_input)
-    puts "You are facing a #{enemy}, what will you do?"
+    puts "You are facing a #{enemy[0]}, what will you do?"
     puts "--- --- --- --- --- --- --- ---"
     puts "  Attack[1]  Eat[2]  Leave[3]"
     puts "--- --- --- --- --- --- --- ---"
     user_input = gets.chomp
     if user_input == "1" || user_input.downcase == "attack"
         puts "He ded."
+        $money += enemy[4]
     end
 
     if user_input == "2" || user_input.downcase == "eat"
@@ -65,10 +87,11 @@ def main()
         writeLine("Jakob: Big trouble up ahead, I spotted some goblins vent!")
         writeLine("Saittam: We must stop them, ahem, I mean you must stop them #{name}!\n")
         enemy = $enemies[rand($enemies.length)]
-        writeLine("A #{enemy} notices you!")
-        writeLine("*The #{enemy} shrieks!*")
+        writeLine("A #{enemy[0]} notices you!")
+        writeLine("*The #{enemy[0]} shrieks!*")
         
         fight!(enemy, $health, $weapon, $armor)
+        puts "Your money is #{$money}"
         user_input = gets.chomp
         isQuit(user_input)
     end
