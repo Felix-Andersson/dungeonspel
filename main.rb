@@ -14,7 +14,7 @@ def shop!(user_input, health, armor, weapon)
     while user_input != "leave"
         puts "Nasir: What do you need traveler?"
         puts "--- --- --- --- --- --- --- ---"
-        puts "  Attack[1]  Eat[2]  Leave[3]"
+        puts "  Weapons[1]  Armor[2]  Food[3]"
         puts "--- --- --- --- --- --- --- ---"
     end
 end
