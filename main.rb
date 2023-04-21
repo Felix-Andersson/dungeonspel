@@ -16,7 +16,16 @@ def shop!(user_input, health, armor, weapon)
         puts "--- --- --- --- --- --- --- ---"
         puts "  Weapons[1]  Armor[2]  Food[3]"
         puts "--- --- --- --- --- --- --- ---"
+
+        user_input = gets.chomp
     end
+end
+
+def is_shop(user_input)
+    if user_input.downcase != "shop"
+        return false
+    end
+    return true
 end
 
 def fight!(enemy, health, weapon, armor)
@@ -34,7 +43,7 @@ end
 
 def writeLine(string)
     temp = string+"\n"
-    temp.each_char {|c| putc c ; sleep 0.02}
+    temp.each_char {|c| putc c ; sleep 0.01}
 end
     
 def main()
@@ -56,8 +65,14 @@ def main()
         isQuit(user_input)
     end
     
-
-    
+    user_input = ""
+    writeLine("Do you want to shop?")
+    user_input = gets.chomp
+    while is_shop(user_input)
+        shop!(user_input, $health, $weapon, $armor)
+        user_input = gets.chomp
+        isQuit(user_input)
+    end
 
 end
 
