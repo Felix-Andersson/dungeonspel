@@ -30,12 +30,12 @@ $mattias = [1000, 25, 30, 1000000]
 
 # Shop items
 #weapons    [name, damage, cost]
-$electron_cannon = ["Electron cannon", 100000]
-$laser_pointer = ["Laser pointer", 500]
-$violation = ["Violation", 4]
-$stick = ["Stick", 6]
-$spear = ["Spear", 15]
-$great_axe = ["Great axe", 25]
+$electron_cannon = ["Electron cannon", 100000, 100]
+$laser_pointer = ["Laser pointer", 500, 50]
+$violation = ["Violation", 4, 30]
+$stick = ["Stick", 6, 10]
+$spear = ["Spear", 15, 40]
+$great_axe = ["Great axe", 25, 70]
 
 $weapons = [$electron_cannon, $laser_pointer, $violation, $stick, $spear, $great_axe]
 

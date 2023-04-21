@@ -40,6 +40,7 @@ def showWeapons()
     user_input = gets.chomp
     isQuit(user_input)
     if user_input == "1"
+        $money -= $weapons[0][2]
         $inventory << $weapons[0]
         p $inventory
     end
