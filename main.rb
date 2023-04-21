@@ -18,10 +18,14 @@ def shop!(user_input, health, armor, weapon)
         puts "--- --- --- --- --- --- --- ---"
 
         user_input = gets.chomp
+        if user_input.downcase == "quit" || user_input.downcase == "exit" #|| input == 4
+            break
+        end
     end
 end
 
-def is_shop(user_input)
+def isShop(user_input)
+
     if user_input.downcase != "shop"
         return false
     end
@@ -29,8 +33,8 @@ def is_shop(user_input)
 end
 
 def fight!(enemy, health, weapon, armor)
-    $user_input = ""
-    isQuit($user_input)
+    user_input = ""
+    isQuit(user_input)
     puts "You are facing a #{enemy}, what will you do?"
     puts "--- --- --- --- --- --- --- ---"
     puts "  Attack[1]  Eat[2]  Leave[3]"
@@ -38,6 +42,10 @@ def fight!(enemy, health, weapon, armor)
     user_input = gets.chomp
     if user_input == "1" || user_input.downcase == "attack"
         puts "He ded."
+    end
+
+    if user_input == "2" || user_input.downcase == "eat"
+        writeLine("Homelander: Yummers.")
     end
 end
 
@@ -68,10 +76,9 @@ def main()
     user_input = ""
     writeLine("Do you want to shop?")
     user_input = gets.chomp
-    while is_shop(user_input)
+    isQuit(user_input)
+    while isShop(user_input)
         shop!(user_input, $health, $weapon, $armor)
-        user_input = gets.chomp
-        isQuit(user_input)
     end
 
 end
