@@ -1,48 +1,60 @@
 # Player
 $health = 100
-$armor = 0
-$weapon = 10
+$max_health = 100
+$default_weapon = ["Rusty sword", 10, 0]
+$default_armor = ["Half naked outfit", 1, 0]
 $money = 0
-#inventory  [[weapons],[armor],[food]]
-$inventory = [[],[],[]]
+$enemies_killed = 0
+$bosses_killed = 0
+#inventory  [weapons,armor,[food]]
+$inventory = [$default_weapon,$default_armor,[$jarpar]]
+$food_inventory = [$jarpar]
 
 # Enemy stats    [name, health, weapon, armor, worth]
-$goblin = ["Goblin", 10, 1, 3, 30]
-$skeleton = ["Skeleton", 10, 3, 0, 30]
-$microsoft_bengt = ["Microsoft Bengt", 20, 5, 1, 30]
-$shaman = ["Shaman", 15, 6, 0, 30]
+$goblin = ["Goblin", 30, 3, 3, 30]
+$skeleton = ["Skeleton", 25, 6, 2, 30]
+$microsoft_bengt = ["Microsoft Bengt", 35, 8, 0, 30]
+$shaman = ["Shaman", 15, 10, 0, 30]
 
 $enemies = [$goblin, $skeleton, $microsoft_bengt, $shaman]
 
 # Boss stats     [name, health, weapon, armor, worth]
-$troll = ["Troll", 300, 9, 13, 100]
-$skeleton_king = ["Skeleton King", 200, 15, 3, 100]
-$orc_lord = ["Orc Lord", 250, 12, 9, 100]
-$mattias = ["Mattias", 1000, 25, 30, 1000000]
+$troll = ["Troll", 800, 30, 13, 200]
+$skeleton_king = ["Skeleton King", 700, 35, 3, 200]
+$orc_lord = ["Orc Lord", 750, 40, 9, 200]
+$mattias = ["Mattias", 5000, 25, 30, 1000000]
 
 $bosses = [$troll, $skeleton_king, $orc_lord, $mattias]
 
 # Shop items
 #weapons    [name, damage, cost]
-$electron_cannon = ["Electron Cannon", 100000, 100]
-$laser_pointer = ["Laser Pointer", 500, 50]
-$violation = ["Violation", 4, 30]
-$stick = ["Stick", 6, 10]
-$spear = ["Spear", 15, 40]
-$great_axe = ["Great Axe", 25, 70]
+$electron_cannon = ["Electron Cannon", 200, 700]
+$laser_pointer = ["Laser Pointer", 85, 300]
+$violation = ["Violation", 15, 70]
+$stick = ["Stick", 12, 30]
+$spear = ["Spear", 25, 100]
+$great_axe = ["Great Axe", 50, 200]
+#mattias weapons, story weapons
+$skarm = ["Skärm", 10000, 0]
+$papper_penna = ["Papper och Penna", 100, 0]
+
+$violations = ["Dumma dig", "Baen", "Bro finna regret", "No", "Yes", "Euugghh", "Ho Ho Ho"]
 
 $weapons = [$electron_cannon, $laser_pointer, $violation, $stick, $spear, $great_axe]
 
 #armor  [name, resistance, cost]
-$nti_shirt = ["NTI Shirt", 12, 400]
-$lader_dojor = ["Läder Dojor", 5, 20]
-$kevlar = ["Kevlar", 20, 50]
+$nti_shirt = ["NTI Shirt", 12, 150]
+$lader_dojor = ["Läder Dojor", 5, 85]
+$kevlar = ["Kevlar", 20, 200]
+$almost_naked_outfit = ["Almost naked outfit", 5, 30]
 
-$armors = [$nti_shirt, $lader_dojor, $kevlar]
+$armors = [$nti_shirt, $lader_dojor, $kevlar, $almost_naked_outfit]
 
 #food   [name, health, cost]
-$panerad_fisk = ["Panerad Fisk", 10, 20]
-$meatball = ["Meatball", 15, 30]
-$jarpar = ["Jarpar", 5, 10]
+$panerad_fisk = ["Panerad Fisk", 20, 30]
+$meatball = ["Meatball", 15, 25]
+$jarpar = ["Jarpar", 10, 15]
+$knackebrod_frukost = ["Frukost knäckebröd", 50, 100]
+$feferoni = ["Feferoni", 5, 10]
 
-$food = [$panerad_fisk, $meatball, $jarpar]
+$food = [$panerad_fisk, $meatball, $jarpar, $knackebrod_frukost, $feferoni]
