@@ -55,7 +55,7 @@ $default_weapon = ["Rusty Sword", 10, 0]
 $default_armor = ["Half Naked Outfit", 1, 0]
 $money = 0
 $enemies_killed = 0
-$bosses_killed = 4
+$bosses_killed = 0
 $mattias_deaths = 0
 #inventory  [weapons,armor]
 $inventory = [$default_weapon, $default_armor]
