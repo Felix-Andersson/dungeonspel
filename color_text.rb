@@ -3,7 +3,7 @@
 # Attack = red
 # Heal/food = green
 # Narrator = bold
-# inventory + money + food = italics
+# inventory + money + food = italic
 
 
 
@@ -35,7 +35,11 @@ end
 
 def writeLine(string)
     temp = string+"\n"
-    temp.each_char {|c| putc c ; sleep 0.01}
+    temp.each_char {|c| putc c ; sleep 0.02}
+end
+def clearConsole()
+    puts "\e[H\e[2J"
+    #print "\e[2J\e[f"
 end
 
 #puts "I'm back green".yellow

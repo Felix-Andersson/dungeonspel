@@ -34,7 +34,7 @@ $weapons = [$electron_cannon, $laser_pointer, $violation, $stick, $spear, $great
 $nti_shirt = ["NTI Shirt", 12, 80]
 $lader_dojor = ["Läder Dojor", 8, 40]
 $kevlar = ["Kevlar", 20, 150]
-$almost_naked_outfit = ["Almost naked outfit", 5, 30]
+$almost_naked_outfit = ["Almost Naked Outfit", 5, 30]
 
 $armors = [$nti_shirt, $lader_dojor, $kevlar, $almost_naked_outfit]
 
@@ -42,21 +42,22 @@ $armors = [$nti_shirt, $lader_dojor, $kevlar, $almost_naked_outfit]
 $panerad_fisk = ["Panerad Fisk", 20, 30]
 $meatball = ["Meatball", 15, 25]
 $jarpar = ["Jarpar", 10, 15]
-$knackebrod_frukost = ["Frukost knäckebröd", 50, 60]
+$knackebrod_frukost = ["Frukost Knäckebröd", 50, 60]
 $feferoni = ["Feferoni", 5, 10]
 
 $food = [$panerad_fisk, $meatball, $jarpar, $knackebrod_frukost, $feferoni]
 
 # Player
+$name = ""
 $health = 100
 $max_health = 100
-$default_weapon = ["Rusty sword", 10, 0]
-$default_armor = ["Half naked outfit", 1, 0]
+$default_weapon = ["Rusty Sword", 10, 0]
+$default_armor = ["Half Naked Outfit", 1, 0]
 $money = 0
 $enemies_killed = 0
-$bosses_killed = 0
+$bosses_killed = 4
 $mattias_deaths = 0
-#inventory  [weapons,armor,[food]]
+#inventory  [weapons,armor]
 $inventory = [$default_weapon, $default_armor]
-$food_inventory = [$jarpar]
+$food_inventory = [$jarpar] #börja med jarpar
 $dead = false
