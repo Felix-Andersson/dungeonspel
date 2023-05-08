@@ -335,27 +335,37 @@ def displayPlayerStatus()
     puts ""
 end
 
+def startMusic()
+    $leviathan_lagoon_song.volume = 50
+    $leviathan_lagoon_song.loop = true
+    $leviathan_lagoon_song.play
+end
+
 def main()
     clearConsole() #Funktionen finns i color_text
     user_input = ""
+
+    puts "Instruktioner:".yellow
+    puts "För att utföra handlingar så skrivs nummer (ex 1, 2, 3) i terminalen."
+    puts "Om användaren vill backa ut ett steg i exempelvis shoppen så skrivs 'quit' i terminalen."
+    puts "'quit' kan även användas för att avsluta programmet om det inte längre går att backa mer."
+    puts "\nTryck på Enter för att gå vidare till spelet".green
+    gets
+
+    clearConsole()
+    startMusic()
     writeLine("Ah we have finally found a teknikare, what is thou name?".bold)
     $name = gets.chomp.italic.blink
     writeLine("Alright then #{$name}, let us begin your adventure!".bold)
 
-    $skarmar_sound.play #spelar ljuded skarmar
-    $leviathan_lagoon.volume = 50
-    $leviathan_lagoon.loop = true
-    $leviathan_lagoon.play
+    writeLine("Saittam: I've heard that there is an impostor among us, stay alert!".cyan)
+    $skarmar_sound.play
+    writeLine("*Jakob comes running*".bold)
+    writeLine("Jakob: Big trouble up ahead, I spotted some monsters venting! Ses imorgon! Ha de gött! hej!")
+    writeLine("Saittam: We must stop them, ahem, I mean you must stop them #{$name}!\n".cyan)
+    $skarmar_sound.play
 
     while isQuit(user_input)
-        if $enemies_killed == 0
-            writeLine("Saittam: I've heard that there is an impostor among us, stay alert!".cyan)
-            $skarmar_sound.play
-            writeLine("*Jakob comes running*".bold)
-            writeLine("Jakob: Big trouble up ahead, I spotted some monsters venting! Ses imorgon! Ha de gött! hej!")
-            writeLine("Saittam: We must stop them, ahem, I mean you must stop them #{$name}!\n".cyan)
-            $skarmar_sound.play
-        end
         # Fight
         # Check if bosses
         if $dead
@@ -423,11 +433,11 @@ def main()
         if ($enemies_killed % 5) == 0 && $enemies_killed != 0 && $bosses_killed < 3
             enemy = $bosses[rand($bosses.length-1)]
             writeLine("\nA towering #{enemy[0]} meets your eyes!")
-            writeLine("*The #{enemy[0]} roars with fury and the ground shakes*\n")
+            writeLine("*The #{enemy[0]} roars with fury and the ground shakes*")
         elsif $bosses_killed < 3
             enemy = $enemies[rand($enemies.length)]
             writeLine("\nA #{enemy[0]} notices you!")
-            writeLine("*The #{enemy[0]} grunts*\n")
+            writeLine("*The #{enemy[0]} grunts*")
         end
         if $bosses_killed < 3
             fight(enemy)
