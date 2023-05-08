@@ -39,7 +39,6 @@ def writeLine(string)
 end
 def clearConsole()
     puts "\e[H\e[2J"
-    #print "\e[2J\e[f"
 end
 
 #puts "I'm back green".yellow

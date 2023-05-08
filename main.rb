@@ -1,6 +1,6 @@
 require_relative 'variables'
 require_relative 'color_text'
-require 'ruby2d'
+require 'ruby2d' #gem install ruby2d
 
 def isQuit(input)
     if input.downcase == "quit"
