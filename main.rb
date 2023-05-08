@@ -36,11 +36,13 @@ def fight(enemy)
             user_input = gets.chomp
             case user_input
             when "1"
+                $attack_sound.play
                 if $inventory[0][0] == "Violation"
                     writeLine("#{$name}: #{$violations[rand(0..6)]}!".blink.yellow)
                 end
                 attack_damage = $inventory[0][1] + enemy[3] + rand(-5..5)
-                enemy_health -= attack_damage                                         #Lägg till så att $weapon får damagen från items i inventory också
+                enemy_health -= attack_damage
+                $enemy_hurt_sound.play                                         #Lägg till så att $weapon får damagen från items i inventory också
                 writeLine("You attacked, dealing #{attack_damage} damage!".red)
             when "2"
                 if $food_inventory.empty?
@@ -72,7 +74,7 @@ def fight(enemy)
         $money += enemy[4]
         writeLine("Your money is #{$money}g".italic)
         if enemy[0] == "Troll" || enemy[0] == "Skeleton King" || enemy[0] == "Orc Lord"
-            bosses_killed += 1
+            $bosses_killed += 1
             $enemy_level_bonus += 0.2
             writeLine("You have defeated a boss monster!".bold)
             writeLine("The world level has risen, enemies will now have increased damage and health.".bold.red)

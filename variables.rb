@@ -3,6 +3,8 @@ require 'ruby2d'
 # Sounds
 $skarmar_sound = Sound.new('audio/Skarmar.wav')
 $leviathan_lagoon_song = Music.new('audio/leviathan_lagoon.mp3')
+$attack_sound = Sound.new('audio/Hit_Hurt76.wav')
+$enemy_hurt_sound = Sound.new('audio/enemy_hurt.wav')
 
 # Enemy stats    [name, health, weapon, armor, worth]
 $goblin = ["Goblin", 30, 3, 3, 30]
