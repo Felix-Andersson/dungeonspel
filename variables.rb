@@ -1,3 +1,8 @@
+require 'ruby2d'
+
+# Sounds
+$skarmar_sound = Sound.new('audio/Skarmar.wav')
+
 # Enemy stats    [name, health, weapon, armor, worth]
 $goblin = ["Goblin", 30, 3, 3, 30]
 $skeleton = ["Skeleton", 25, 6, 2, 30]

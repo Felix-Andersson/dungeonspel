@@ -1,5 +1,6 @@
 require_relative 'variables'
 require_relative 'color_text'
+require 'ruby2d'
 
 def isQuit(input)
     if input.downcase == "quit"
@@ -315,7 +316,7 @@ end
 
 def displayPlayerStatus()
     writeLine("\nPlayer status:".bold)
-    puts "Health: #{$health}".italic
+    puts "Health: #{$health}/100".italic
     puts "Weapon: #{$inventory[0][0]}, Damage: #{$inventory[0][1]}".italic
     puts "Armor: #{$inventory[1][0]}, Defence: #{$inventory[1][1]}".italic
     print "Food: ".italic
@@ -333,6 +334,7 @@ def main()
     writeLine("Ah we have finally found a teknikare, what is thou name?".bold)
     $name = gets.chomp.italic.blink
     writeLine("Alright then #{$name}, let us begin your adventure!")
+    $skarmar_sound.play #spelar ljuded skarmar
     while isQuit(user_input)
         if $enemies_killed == 0
             writeLine("Saittam: I've heard that there is an impostor among us, stay alert!".cyan)
