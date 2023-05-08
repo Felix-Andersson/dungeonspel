@@ -18,7 +18,7 @@ end
 
 def fight(enemy)
 
-    enemy_health = enemy[1]
+    enemy_health = enemy[1]*$enemy_level_bonus
     while enemy_health > 0 && $health > 0
         displayPlayerStatus()
         user_input = ""
@@ -58,10 +58,12 @@ def fight(enemy)
         end
 
         #Enemy attack
-        enemy_attack = enemy[2] - $inventory[1][1] + rand(-1..5)
-        $health -= enemy_attack
-        writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
-        writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
+        if enemy_health > 0
+            enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
+            $health -= enemy_attack
+            writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
+            writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
+        end
     end
     
     if enemy_health < 1
@@ -71,6 +73,9 @@ def fight(enemy)
         writeLine("Your money is #{$money}g".italic)
         if enemy[0] == "Troll" || enemy[0] == "Skeleton King" || enemy[0] == "Orc Lord"
             bosses_killed += 1
+            $enemy_level_bonus += 0.2
+            writeLine("You have defeated a boss monster!".bold)
+            writeLine("The world level has risen, enemies will now have increased damage and health.".bold.red)
         end
     else
         writeLine("\nYour health ran out, and so did your wealth.".red)
@@ -119,10 +124,12 @@ def fightMattias(mattias)
         end
 
         #Enemy attack
-        mattias_attack = mattias[2] - $inventory[1][1] + rand(-1..5)
-        $health -= mattias_attack
-        writeLine("#{mattias[0]} attacked, dealing #{mattias_attack} damage!".bg_red)
-        print "#{mattias[0]}'s Health: #{mattias_health}"
+        if mattias_health > 0
+            mattias_attack = mattias[2] - $inventory[1][1] + rand(-1..5)
+            $health -= mattias_attack
+            writeLine("#{mattias[0]} attacked, dealing #{mattias_attack} damage!".bg_red)
+            print "#{mattias[0]}'s Health: #{mattias_health}"
+        end
     end
     
     if enemy_health < 1
@@ -216,7 +223,7 @@ def showWeapons()
         writeLine("Nasir: What do you need traveler? [current money: #{$money}]".bold)
         puts "--- --- --- --- --- --- --- ---"
         while i<$weapons.length
-            puts "#{i+1}. +#{$weapons[i][1]} dmg #{$weapons[i][0]}, #{$weapons[i][2]}g".red
+            puts "#{i+1}. +#{$weapons[i][1]} damage #{$weapons[i][0]}, #{$weapons[i][2]}g".red
             i += 1
         end
         puts "--- --- --- --- --- --- --- ---"
@@ -251,7 +258,7 @@ def showArmors()
         writeLine("Nasir: What do you need traveler? [current money: #{$money}]".bold)
         puts "--- --- --- --- --- --- --- ---"
         while i<$armors.length
-            puts "#{i+1}. +#{$armors[i][1]} dmg #{$armors[i][0]}, #{$armors[i][2]}g".blue
+            puts "#{i+1}. +#{$armors[i][1]} armor #{$armors[i][0]}, #{$armors[i][2]}g".blue
             i += 1
         end
         puts "--- --- --- --- --- --- --- ---"
@@ -286,7 +293,7 @@ def showFood()
         writeLine("Nasir: What do you need traveler? [current money: #{$money}]".bold)
         puts "--- --- --- --- --- --- --- ---"
         while i<$food.length
-            puts "#{i+1}. +#{$food[i][1]} dmg #{$food[i][0]}, #{$food[i][2]}g".green
+            puts "#{i+1}. +#{$food[i][1]} health #{$food[i][0]}, #{$food[i][2]}g".green
             i += 1
         end
         puts "--- --- --- --- --- --- --- ---"
@@ -333,8 +340,13 @@ def main()
     user_input = ""
     writeLine("Ah we have finally found a teknikare, what is thou name?".bold)
     $name = gets.chomp.italic.blink
-    writeLine("Alright then #{$name}, let us begin your adventure!")
+    writeLine("Alright then #{$name}, let us begin your adventure!".bold)
+
     $skarmar_sound.play #spelar ljuded skarmar
+    $leviathan_lagoon.volume = 50
+    $leviathan_lagoon.loop = true
+    $leviathan_lagoon.play
+
     while isQuit(user_input)
         if $enemies_killed == 0
             writeLine("Saittam: I've heard that there is an impostor among us, stay alert!".cyan)
@@ -409,7 +421,7 @@ def main()
         end
         
         if ($enemies_killed % 5) == 0 && $enemies_killed != 0 && $bosses_killed < 3
-            enemy = $bosses[rand($bosses.length)]
+            enemy = $bosses[rand($bosses.length-1)]
             writeLine("\nA towering #{enemy[0]} meets your eyes!")
             writeLine("*The #{enemy[0]} roars with fury and the ground shakes*\n")
         elsif $bosses_killed < 3

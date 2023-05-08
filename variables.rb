@@ -2,6 +2,7 @@ require 'ruby2d'
 
 # Sounds
 $skarmar_sound = Sound.new('audio/Skarmar.wav')
+$leviathan_lagoon = Music.new('audio/leviathan_lagoon.mp3')
 
 # Enemy stats    [name, health, weapon, armor, worth]
 $goblin = ["Goblin", 30, 3, 3, 30]
@@ -10,6 +11,8 @@ $microsoft_bengt = ["Microsoft Bengt", 35, 8, 0, 30]
 $shaman = ["Shaman", 15, 10, 0, 30]
 
 $enemies = [$goblin, $skeleton, $microsoft_bengt, $shaman]
+
+$enemy_level_bonus = 1
 
 # Boss stats     [name, health, weapon, armor, worth]
 $troll = ["Troll", 400, 18, 13, 200]
@@ -21,7 +24,7 @@ $bosses = [$troll, $skeleton_king, $orc_lord, $mattias]
 
 # Shop items
 #weapons    [name, damage, cost]
-$electron_cannon = ["Electron Cannon", 200, 700]
+$electron_cannon = ["Electron Cannon", 200, 400]
 $laser_pointer = ["Laser Pointer", 70, 250]
 $violation = ["Violation", 15, 70]
 $stick = ["Stick", 12, 30]
@@ -36,9 +39,9 @@ $violations = ["Dumma dig", "Baen", "Bro finna regret", "No", "Yes", "Euugghh", 
 $weapons = [$electron_cannon, $laser_pointer, $violation, $stick, $spear, $great_axe]
 
 #armor  [name, resistance, cost]
-$nti_shirt = ["NTI Shirt", 12, 80]
+$nti_shirt = ["NTI Shirt", 15, 80]
 $lader_dojor = ["Läder Dojor", 8, 40]
-$kevlar = ["Kevlar", 20, 150]
+$kevlar = ["Kevlar", 30, 150]
 $almost_naked_outfit = ["Almost Naked Outfit", 5, 30]
 
 $armors = [$nti_shirt, $lader_dojor, $kevlar, $almost_naked_outfit]
