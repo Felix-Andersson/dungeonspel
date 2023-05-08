@@ -338,9 +338,11 @@ def main()
     while isQuit(user_input)
         if $enemies_killed == 0
             writeLine("Saittam: I've heard that there is an impostor among us, stay alert!".cyan)
+            $skarmar_sound.play
             writeLine("*Jakob comes running*".bold)
             writeLine("Jakob: Big trouble up ahead, I spotted some monsters venting! Ses imorgon! Ha de gött! hej!")
             writeLine("Saittam: We must stop them, ahem, I mean you must stop them #{$name}!\n".cyan)
+            $skarmar_sound.play
         end
         # Fight
         # Check if bosses
@@ -363,6 +365,7 @@ def main()
                 writeLine("Saittam: Inga digitala hjälpmedel! Penna o papper det gäller samtliga!".cyan)
                 writeLine("*Saittam throws the sharpened pen into the skull of a frightened Jakob*".bold)
                 writeLine("Jakob is no more".bold)
+                $skarmar_sound.play
 
                 
 
@@ -378,9 +381,13 @@ def main()
                 writeLine("#{$name}: Saittam! Explain your actions. What did you do to Jakob? Are you really on our side?")
                 writeLine("*Saittam gives you a furious glance and you realize your mistake".bold)
                 writeLine("Saittam: Skärmar. Skärmar, I BOTTEN!".cyan)
+                $skarmar_sound.play
+                $skarmar_sound.play
+                $skarmar_sound.play
                 writeLine("*Saittam reveals himself to actually be Mattias \n
                     and he throws his pen with full force at your skärm which is destroyed".bold)
                 writeLine("Mattias: PAPPER OCH PENNA! Inga digitala hjälpmedel".blue)
+                $skarmar_sound.play
                 writeLine("You got the papper och penna weapon")
             elsif $mattias_deaths > 0
                 writeLine("*You return from the grim reapers embrace and try once more to defeat this great menace.".bold)
@@ -394,7 +401,7 @@ def main()
         if $bosses_killed == 4
             clearConsole()
             writeLine("You won and secured the skärmar of the world!".yellow)
-
+            $skarmar_sound.play
             writeLine("It is unfortunately time to say goodbye, but I wish you a merr- ...no, a wonderful evening.".yellow)
             writeLine("Ses imorgon! Ha de gött! hej!".yellow)
             gets
