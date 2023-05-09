@@ -20,6 +20,7 @@ def fight(enemy)
 
     enemy_health = enemy[1]*$enemy_level_bonus
     while enemy_health > 0 && $health > 0
+        $blind_chance = 0
         displayPlayerStatus()
         user_input = ""
         writeLine("\nYou are facing a #{enemy[0]}, what will you do?".magenta)
@@ -71,7 +72,7 @@ def fight(enemy)
         end
 
         #Enemy attack
-        if enemy_health > 0 && ($blind_chance != 1 || $blind_chance == 0)
+        if enemy_health > 0 && ($blind_chance == 1 || $blind_chance == 0)
             enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
