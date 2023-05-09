@@ -24,12 +24,19 @@ def fight(enemy)
         displayPlayerStatus()
         user_input = ""
         writeLine("\nYou are facing a #{enemy[0]}, what will you do?".magenta)
+        if $turns_blinded > 0
+            $turns_blinded -= 1
+            writeLine("Blinded: #{$turns_blinded} turns")
+        elsif $turns_blinded == 0
+            writeLine("#{enemy[0]} isn't blinded anymore")
+            $turns_blinded = -1
+        end
         puts "--- --- --- --- --- --- --- ---"
         print "Attack[1]".bg_red.bold
         print "  "
         print "Eat[2]".bg_green.bold
         print "  "
-        print "Blind enemy (temporarily) [3]".bg_gray.bold
+        print "Blind enemy (3 turns) [3]".bg_gray.bold
         print "  "
         print "Quit Game[4]".bg_blue.bold
         puts ""
@@ -56,7 +63,8 @@ def fight(enemy)
                 end
             when "3"
                 $blind_chance = rand(1..6)
-                if $blind_chance != 1
+                if $blind_chance > 2
+                    $turns_blinded = 3
                     writeLine("Successfully blinded enemy and avoided damage")
                     # Play sound
                     $blind_sound.play
@@ -72,7 +80,7 @@ def fight(enemy)
         end
 
         #Enemy attack
-        if enemy_health > 0 && ($blind_chance == 1 || $blind_chance == 0)
+        if enemy_health > 0 && ($blind_chance < 3 || $blind_chance == 0)
             enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
@@ -102,34 +110,61 @@ def fight(enemy)
     writeLine("Enemies killed: #{$enemies_killed}".italic)
 end
 
-def fightMattias(mattias)
-    actions = 0
-    mattias_health = mattias[1]
-    while mattias_health > 0 && $health > 0
+def fightMattias(enemy)
+    enemy_health = enemy[1]*$enemy_level_bonus
+    while enemy_health > 0 && $health > 0
+        $blind_chance = 0
         displayPlayerStatus()
         user_input = ""
-        writeLine("\nOh no, You are facing #{mattias[0]}, what will you do?".magenta)
+        writeLine("\nYou are facing #{enemy[0]}, what will you do?".magenta)
+        if $turns_blinded > 0
+            $turns_blinded -= 1
+            writeLine("Blinded: #{$turns_blinded} turns")
+        elsif $turns_blinded == 0
+            writeLine("#{enemy[0]} isn't blinded anymore")
+            $turns_blinded = -1
+        end
         puts "--- --- --- --- --- --- --- ---"
         print "Attack[1]".bg_red.bold
         print "  "
         print "Eat[2]".bg_green.bold
         print "  "
-        print "Quit Game[3]".bg_blue.bold
+        print "Blind enemy (3 turns) [3]".bg_gray.bold
+        print "  "
+        print "Quit Game[4]".bg_blue.bold
         puts ""
         puts "--- --- --- --- --- --- --- ---"
-
-        while ((user_input != "1") && (user_input != "2") && (user_input != "3") && (user_input != "quit"))
+        
+        while ((user_input != "1") && (user_input != "2") && (user_input != "3") && (user_input != "4") && (user_input != "quit"))
             user_input = gets.chomp
             case user_input
             when "1"
-                actions += 1
-                attack_damage = $inventory[0][1] + mattias[3] + rand(-5..5)
-                mattias_health -= attack_damage                                         #Lägg till så att $weapon får damagen från items i inventory också
+                $attack_sound.play
+                if $inventory[0][0] == "Violation"
+                    writeLine("#{$name}: #{$violations[rand(0..6)]}!".blink.yellow)
+                end
+                attack_damage = $inventory[0][1] + enemy[3] + rand(-5..5)
+                enemy_health -= attack_damage
+                $enemy_hurt_sound.play                                         #Lägg till så att $weapon får damagen från items i inventory också
                 writeLine("You attacked, dealing #{attack_damage} damage!".red)
             when "2"
-                actions += 1
-                eat()
-            when "quit", "3"
+                if $food_inventory.empty?
+                    writeLine("You currently don't have any food in your inventory".bold)
+                    redo
+                else
+                    eat()
+                end
+            when "3"
+                $blind_chance = rand(1..6)
+                if $blind_chance > 2
+                    $turns_blinded = 3
+                    writeLine("Successfully took Mattias glasses")
+                    # Play sound
+                    $blind_sound.play
+                else
+                    writeLine("You failed to take his glasses!")
+                end
+            when "quit", "4"
                 puts ("Aight' have a good one, later! Ses imorgon! Ha de gött! hej!")
                 exit(true)
             else
@@ -138,28 +173,34 @@ def fightMattias(mattias)
         end
 
         #Enemy attack
-        if mattias_health > 0
-            mattias_attack = mattias[2] - $inventory[1][1] + rand(-1..5)
-            $health -= mattias_attack
-            writeLine("#{mattias[0]} attacked, dealing #{mattias_attack} damage!".bg_red)
-            print "#{mattias[0]}'s Health: #{mattias_health}"
+        if enemy_health > 0 && ($blind_chance < 3 || $blind_chance == 0)
+            enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
+            $health -= enemy_attack
+            writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
+            writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
         end
     end
     
     if enemy_health < 1
-        writeLine("\nMattias is defeated. You are victorious.".yellow.bold)
+        writeLine("\nThe #{enemy[0]} has fallen.".yellow.bold)
         $enemies_killed += 1
-        $money += mattias[4]
+        $money += enemy[4]
         writeLine("Your money is #{$money}g".italic)
-        $bosses_killed += 1
+        if enemy[0] == "Troll" || enemy[0] == "Skeleton King" || enemy[0] == "Orc Lord"
+            $bosses_killed += 1
+            $enemy_level_bonus += 0.2
+            writeLine("You have defeated a boss monster!".bold)
+            writeLine("The world level has risen, enemies will now have increased damage and health.".bold.red)
+        end
     else
-        writeLine("\nYour health ran out, and so did your wealth.".red.bold)
+        writeLine("\nYour health ran out, and so did your wealth.".red)
         $money -= (0.2*$money)
-        writeLine("Your money is #{$money}g".italic)
+        writeLine("Your money is #{$money}g".italic) 
         #kanske förlorar ett random item från inventory eller något
-        $mattias_deaths += 1
         $dead = true
     end
+
+    writeLine("Enemies killed: #{$enemies_killed}".italic)
 end
 
 def eat()
@@ -387,36 +428,58 @@ def main()
             $dead = false
             writeLine("Welcome back #{$name}! Are you okay?")
         end
-        if $bosses_killed == 3
+        $bosses_killed = 3 # testing mattias fight
+        if $bosses_killed >= 3
             if $mattias_deaths == 0
                 writeLine("*Jakob enters Saittam's room*".bold)
+                sleep(0.3)
                 writeLine("Saittam: Greetings Jakob, did you bring a pen and paper?".cyan)
+                sleep(0.3)
                 writeLine("Jakob: I actually brought something better!")
+                sleep(0.3)
                 writeLine("*Jakob takes out his computer*".bold)
+                sleep(0.3)
                 writeLine("Saittam: Y-you brought a computer?".cyan)
+                sleep(0.3)
                 writeLine("Jakob: Yes, it is much more efficient!")
+                sleep(0.3)
                 writeLine("Saittam is standing in front of the whiteboard with a pen, sharpened to perfection.".cyan)
+                sleep(0.3)
                 writeLine("Saittam: Aäeeh, skärmar i botten!".cyan)
+                sleep(0.3)
                 writeLine("Jakob looks att Saittam with a distraught expression")
+                sleep(0.3)
                 writeLine("Saittam: Inga digitala hjälpmedel! Penna o papper det gäller samtliga!".cyan)
+                sleep(0.3)
                 writeLine("*Saittam throws the sharpened pen into the skull of a frightened Jakob*".bold)
+                sleep(0.3)
                 writeLine("Jakob is no more".bold)
+                sleep(0.3)
                 $skarmar_sound.play
 
                 
 
                 writeLine("*Jimmy comes running to you*")
+                sleep(0.3)
                 writeLine("Jimmy: #{$name}! #{$name}! Jakob is dead!")
+                sleep(0.3)
                 writeLine("#{$name}: What??")
                 writeLine("Jimmy: I found him in Saittams room!")
-                
+                sleep(0.3)
                 writeLine("38 minutes later...")
                 
-                writeLine("*You enter Saittam's room*")
+                writeLine("*You enter Saittam's room with a skärm*")
+                sleep(0.3)
                 writeLine("Saittam: #{$name} I take it Jakob has been destroyed. I must say you're sooner than expected.")
+                sleep(0.3)
                 writeLine("#{$name}: Saittam! Explain your actions. What did you do to Jakob? Are you really on our side?")
+                sleep(0.3)
                 writeLine("*Saittam gives you a furious glance and you realize your mistake".bold)
+                sleep(0.3)
                 writeLine("Saittam: Skärmar. Skärmar, I BOTTEN!".cyan)
+                sleep(0.2)
+                $skarmar2_sound.play
+                sleep(0.1)
                 $skarmar_sound.play
                 $skarmar_sound.play
                 $skarmar_sound.play
@@ -424,6 +487,7 @@ def main()
                     and he throws his pen with full force at your skärm which is destroyed".bold)
                 writeLine("Mattias: PAPPER OCH PENNA! Inga digitala hjälpmedel".blue)
                 $skarmar_sound.play
+                $skarmar2_sound.play
                 writeLine("You got the papper och penna weapon")
             elsif $mattias_deaths > 0
                 writeLine("*You return from the grim reapers embrace and try once more to defeat this great menace.".bold)

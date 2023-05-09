@@ -6,6 +6,7 @@ $leviathan_lagoon_song = Music.new('audio/leviathan_lagoon.mp3')
 $attack_sound = Sound.new('audio/Hit_Hurt76.wav')
 $enemy_hurt_sound = Sound.new('audio/enemy_hurt.wav')
 $blind_sound = Sound.new('audio/blind_sound.mp3')
+$skarmar2_sound = Sound.new('audio/Skarmar2.wav')
 
 # Enemy stats    [name, health, weapon, armor, worth]
 $goblin = ["Goblin", 30, 3, 3, 30]
@@ -73,3 +74,5 @@ $inventory = [$default_weapon, $default_armor]
 $food_inventory = [$jarpar] #börja med jarpar
 $dead = false
 $blind_chance = 0
+$turns_blinded = -1
+$mattias_fight_actions = 0
