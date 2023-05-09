@@ -38,7 +38,11 @@ def fight(enemy)
             user_input = gets.chomp
             case user_input
             when "1"
-                $attack_sound.play
+                if enemy[0] != "Mattias"
+                    $attack_sound.play
+                else
+                    $mattias_attacked_sound.play
+                end
                 if $inventory[0][0] == "Violation"
                     writeLine("#{$name}: #{$violations[rand(0..6)]}!".blink.yellow)
                 end
@@ -355,7 +359,7 @@ def main()
             writeLine("Welcome back #{$name}! Are you okay?")
             writeLine("*Your health has been restored to #{$health}/100*".green)
         end
-        if $bosses_killed == 3
+        if $bosses_killed >= 3
             if $mattias_deaths == 0
                 $leviathan_lagoon_song.fadeout(2000)
                 $japanlovania_song.play
@@ -385,6 +389,8 @@ def main()
                 writeLine("Jakob is no more".bold)
                 $skarmar_sound.volume = 80
                 $skarmar_sound.play
+                $skarmar2_sound.volume = 100
+                $skarmar2_sound.play
                 print "\nPress Enter to continue".green
                 gets
                 
@@ -419,8 +425,7 @@ def main()
                 writeLine("*Saittam reveals himself to actually be Mattias\nand he throws his pen with full force at your skärm which is destroyed*".bold)
                 sleep(0.4)
                 writeLine("Mattias: PAPPER OCH PENNA! Inga digitala hjälpmedel".blue)
-                $skarmar2_sound.play
-                sleep(0.4)
+
                 writeLine("*You got the papper och penna weapon*".bold)
                 $japanlovania_song.volume = 35
             elsif $mattias_deaths > 0
@@ -433,6 +438,7 @@ def main()
         end
 
         if $bosses_killed == 4
+            $mattias_defeated_sound.play
             writeLine("You managed to best the beast. But was this really it?".bold)
             writeLine("All this work, for some measly text?...".bold)
             writeLine("The answer? Yep, this is all you get. Have a look at your stats one last time or something.".bold)

@@ -3,6 +3,11 @@ require 'ruby2d'
 # Sounds (max volym = 100)
 $skarmar_sound = Sound.new('audio/Skarmar.wav')
 $skarmar_sound.volume = 30
+$skarmar2_sound = Sound.new('audio/Skarmar2.wav')
+$skarmar2_sound.volume = 40
+$mattias_attacked_sound = Sound.new('audio/mattias_attacked.wav')
+$mattias_attacked_sound.volume = 30
+$mattias_defeated_sound = Sound.new('audio/mattias_defeated.wav')
 $leviathan_lagoon_song = Music.new('audio/leviathan_lagoon.mp3')
 $leviathan_lagoon_song.volume = 50
 $leviathan_lagoon_song.loop = true
@@ -76,7 +81,7 @@ $default_weapon = ["Rusty Sword", 10, 0]
 $default_armor = ["Half Naked Outfit", 1, 0]
 $money = 0
 $enemies_killed = 0
-$bosses_killed = 3
+$bosses_killed = 3 # testing value, should be 0
 $mattias_deaths = 0
 #inventory  [weapons,armor]
 $inventory = [$default_weapon, $default_armor]
