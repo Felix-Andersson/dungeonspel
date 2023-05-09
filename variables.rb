@@ -5,6 +5,7 @@ $skarmar_sound = Sound.new('audio/Skarmar.wav')
 $leviathan_lagoon_song = Music.new('audio/leviathan_lagoon.mp3')
 $attack_sound = Sound.new('audio/Hit_Hurt76.wav')
 $enemy_hurt_sound = Sound.new('audio/enemy_hurt.wav')
+$blind_sound = Sound.new('audio/blind_sound.mp3')
 
 # Enemy stats    [name, health, weapon, armor, worth]
 $goblin = ["Goblin", 30, 3, 3, 30]

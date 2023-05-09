@@ -28,11 +28,13 @@ def fight(enemy)
         print "  "
         print "Eat[2]".bg_green.bold
         print "  "
-        print "Quit Game[3]".bg_blue.bold
+        print "Blind enemy (temporarily) [3]".bg_gray.bold
+        print "  "
+        print "Quit Game[4]".bg_blue.bold
         puts ""
         puts "--- --- --- --- --- --- --- ---"
         
-        while ((user_input != "1") && (user_input != "2") && (user_input != "3") && (user_input != "quit"))
+        while ((user_input != "1") && (user_input != "2") && (user_input != "3") && (user_input != "4") && (user_input != "quit"))
             user_input = gets.chomp
             case user_input
             when "1"
@@ -51,7 +53,16 @@ def fight(enemy)
                 else
                     eat()
                 end
-            when "quit", "3"
+            when "3"
+                blind_chance = rand(1..6)
+                if blind_chance != 1
+                    writeLine("Successfully blinded enemy and avoided damage")
+                    # Play sound
+                    $blind_sound.play
+                else
+                    writeLine("Failed to blind enemy!")
+                end
+            when "quit", "4"
                 puts ("Aight' have a good one, later! Ses imorgon! Ha de gött! hej!")
                 exit(true)
             else
@@ -60,7 +71,7 @@ def fight(enemy)
         end
 
         #Enemy attack
-        if enemy_health > 0
+        if enemy_health > 0 && blind_chance != 1
             enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
