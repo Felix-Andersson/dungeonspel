@@ -54,12 +54,18 @@ def fight(enemy)
                     eat()
                 end
             when "3"
-                $blind_chance = rand(1..3)
-                if $blind_chance != 1
-                    writeLine("Successfully blinded enemy and avoided damage")
-                    $blind_sound.play
+                if $blinded_turns > 0
+                    writeLine("The enemy is already blinded".bold)
+                    redo
                 else
-                    writeLine("Failed to blind enemy!")
+                    $blind_chance = rand(1..3)
+                    if $blind_chance != 1
+                        $blinded_turns = 3
+                        writeLine("Successfully blinded enemy and avoided damage")
+                        $blind_sound.play
+                    else
+                        writeLine("Failed to blind enemy!")
+                    end
                 end
             when "quit", "4"
                 puts ("Aight' have a good one, later! Ses imorgon! Ha de gött! hej!")
@@ -79,11 +85,14 @@ def fight(enemy)
         end
 
         #Enemy attack
-        if enemy_health > 0 && ($blind_chance == 1 || $blind_chance == 0)
+        if enemy_health > 0 && $blinded_turns <= 0
             enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
             writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
+        elsif $blinded_turns > 0
+            writeLine("#{enemy[0]} attacked, but couldn't hit you because he was blinded. Truly unfortunate...")
+            $blinded_turns -= 1
         end
     end
     
@@ -98,8 +107,6 @@ def fight(enemy)
             writeLine("You have defeated a boss monster!".bold)
             writeLine("The world level has risen, enemies will now have increased damage and health.".bold.red)
         elsif enemy[0] == "Mattias"
-            $enemies_killed += 1
-            $money += mattias[4]
             writeLine("Your money is #{$money}g".italic)
             $bosses_killed += 1
         end
@@ -304,12 +311,6 @@ def displayPlayerStatus()
     puts ""
 end
 
-def startMusic()
-    $leviathan_lagoon_song.volume = 50
-    $leviathan_lagoon_song.loop = true
-    $leviathan_lagoon_song.play
-end
-
 def main()
     clearConsole() #Funktionen finns i color_text
     user_input = ""
@@ -323,7 +324,7 @@ def main()
     gets
 
     clearConsole()
-    startMusic()
+    $leviathan_lagoon_song.play
     writeLine("Ah we have finally found a teknikare, what is thou name?".bold)
     $name = gets.chomp.italic.blink
     writeLine("Alright then #{$name}, let us begin your adventure!".bold)
@@ -340,12 +341,15 @@ def main()
         # Fight
         # Check if bosses
         if $dead
-            $health = 50
+            $health = 75
             $dead = false
             writeLine("Welcome back #{$name}! Are you okay?")
+            writeLine("*Your health has been restored to #{$health}/100*".green)
         end
         if $bosses_killed == 3
             if $mattias_deaths == 0
+                $leviathan_lagoon_song.fadeout(2000)
+                $japanlovania_song.play
                 writeLine("*Jakob enters Saittam's room*".bold)
                 writeLine("Saittam: Greetings Jakob, did you bring a pen and paper?".cyan)
                 writeLine("Jakob: I actually brought something better!")
@@ -361,7 +365,7 @@ def main()
                 writeLine("Jakob is no more".bold)
                 $skarmar_sound.volume = 100
                 $skarmar_sound.play
-                puts "\nPress Enter to continue".green
+                print "\nPress Enter to continue".green
                 gets
                 
                 writeLine("*Jimmy comes running to you*")
@@ -374,20 +378,20 @@ def main()
                 writeLine("*You enter Saittam's room*".bold)
                 writeLine("Saittam: #{$name} I take it Jakob has been destroyed. I must say you're sooner than expected.".cyan)
                 writeLine("#{$name}: Saittam! Explain your actions. What did you do to Jakob? Are you really on our side?")
-                writeLine("*Saittam gives you a furious glance and you realize your mistake*".bold)
-                writeLine("Saittam: skärmar. Skärmar, SKÄRMAR I BOTTEN!".cyan)
                 $skarmar_sound.volume = 10
                 $skarmar_sound.play
+                writeLine("*Saittam gives you a furious glance and you realize your mistake*".bold)
                 $skarmar_sound.volume = 50
                 $skarmar_sound.play
-                $skarmar_sound.volume = 100
+                writeLine("Saittam: skärmar. Skärmar, SKÄRMAR I BOTTEN!".cyan)
+                $skarmar_sound.volume = 80
                 $skarmar_sound.play
                 
-                writeLine("*Saittam reveals himself to actually be Mattias \n
-                    and he throws his pen with full force at your skärm which is destroyed".bold)
+                writeLine("*Saittam reveals himself to actually be Mattias\nand he throws his pen with full force at your skärm which is destroyed*".bold)
                 writeLine("Mattias: PAPPER OCH PENNA! Inga digitala hjälpmedel".blue)
                 $skarmar_sound.play
                 writeLine("*You got the papper och penna weapon*".bold)
+                $japanlovania_song.volume = 35
             elsif $mattias_deaths > 0
                 writeLine("*You return from the grim reapers embrace and try once more to defeat this great menace.".bold)
                 writeLine("Mattias: Hehehehe, ja tänkte att någon skulle skratta kanske".blue)
