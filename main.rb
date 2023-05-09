@@ -23,16 +23,16 @@ def fight(enemy)
         displayPlayerStatus()
         user_input = ""
         writeLine("\nYou are facing a #{enemy[0]}, what will you do?".magenta)
-        puts "--- --- --- --- --- --- --- ---"
+        puts "--- --- --- --- --- --- --- --- --- --- ---"
         print "Attack[1]".bg_red.bold
         print "  "
         print "Eat[2]".bg_green.bold
         print "  "
-        print "Blind [3]".bg_gray.bold
+        print "Blind (3 turns) [3]".bg_gray.bold
         print "  "
         print "Quit Game[4]".bg_blue.bold
         puts ""
-        puts "--- --- --- --- --- --- --- ---"
+        puts "--- --- --- --- --- --- --- --- --- --- ---"
         
         while ((user_input != "1") && (user_input != "2") && (user_input != "3") && (user_input != "4") && (user_input != "quit"))
             user_input = gets.chomp
@@ -65,7 +65,11 @@ def fight(enemy)
                     $blind_chance = rand(1..3)
                     if $blind_chance != 1
                         $blinded_turns = 3
-                        writeLine("Successfully blinded enemy and avoided damage")
+                        if enemy[0] == "Mattias"
+                            writeLine("Successfully took Mattias glasses")
+                        else
+                            writeLine("Successfully blinded enemy and avoided damage")
+                        end
                         $blind_sound.play
                     else
                         writeLine("Failed to blind enemy!")
@@ -79,7 +83,7 @@ def fight(enemy)
                 puts ": deals damage to enemy based on weapon equiped"
                 print "Eat[2]".bg_green.bold
                 puts ": choose a food item from inventory to consume, restores health"
-                print "Blind [3]".bg_gray.bold
+                print "Blind (3 turns) [3]".bg_gray.bold
                 puts ": has a 2/3 chance of hitting, prevents enemy from dealing damage for 3 turns"
                 print "Quit Game[4]".bg_blue.bold
                 puts ": exits game"
@@ -97,6 +101,11 @@ def fight(enemy)
         elsif $blinded_turns > 0
             writeLine("#{enemy[0]} attacked, but couldn't hit you because he was blinded. Truly unfortunate...")
             $blinded_turns -= 1
+            if $blinded_turns == 0
+                writeLine("#{enemy[0]} isn't blinded anymore!")
+            else
+                writeLine("The #{enemy[0]} will be blinded for #{$blinded_turns} more turns")
+            end
         end
     end
     
@@ -355,19 +364,30 @@ def main()
                 $leviathan_lagoon_song.fadeout(2000)
                 $japanlovania_song.play
                 writeLine("*Jakob enters Saittam's room*".bold)
+                sleep(0.4)
                 writeLine("Saittam: Greetings Jakob, did you bring a pen and paper?".cyan)
+                sleep(0.4)
                 writeLine("Jakob: I actually brought something better!")
+                sleep(0.4)
                 writeLine("*Jakob takes out his computer*".bold)
+                sleep(0.4)
                 writeLine("Saittam: Y-you brought a computer?".cyan)
+                sleep(0.4)
                 writeLine("Jakob: Yes, it is much more efficient!")
+                sleep(0.4)
                 writeLine("*Saittam is standing in front of the whiteboard with a pen, sharpened to perfection*".bold)
+                sleep(0.4)
                 writeLine("Saittam: Aäeeh, skärmar i botten!".cyan)
-                $skarmar_sound.play
+                sleep(0.4)
+                $skarmar2_sound.play
                 writeLine("*Jakob looks att Saittam with a distraught expression*".bold)
+                sleep(0.4)
                 writeLine("Saittam: Inga digitala hjälpmedel! Penna o papper, det gäller samtliga!".cyan)
+                sleep(0.4)
                 writeLine("*Saittam throws the sharpened pen at a frightened Jakob*".bold)
+                sleep(0.4)
                 writeLine("Jakob is no more".bold)
-                $skarmar_sound.volume = 100
+                $skarmar_sound.volume = 80
                 $skarmar_sound.play
                 $skarmar2_sound.volume = 100
                 $skarmar2_sound.play
@@ -375,28 +395,37 @@ def main()
                 gets
                 
                 writeLine("*Jimmy comes running to you*")
+                sleep(0.4)
                 writeLine("Jimmy: #{$name}! #{$name}! Jakob is dead!")
+                sleep(0.4)
                 writeLine("#{$name}: What??")
-                writeLine("Jimmy: I found him in Saittams room!\n")
+                sleep(0.4)
+                writeLine("Jimmy: I found him in Saittam's room!\n")
+                sleep(0.4)
                 
-                writeLine("38 minutes later...".bold)
+                writeLine("38 minutes later...\n".bold)
+                sleep(1)
                 
                 writeLine("*You enter Saittam's room*".bold)
+                sleep(0.4)
                 writeLine("Saittam: #{$name} I take it Jakob has been destroyed. I must say you're sooner than expected.".cyan)
+                sleep(0.4)
                 writeLine("#{$name}: Saittam! Explain your actions. What did you do to Jakob? Are you really on our side?")
                 $skarmar_sound.volume = 10
                 $skarmar_sound.play
+                sleep(0.4)
                 writeLine("*Saittam gives you a furious glance and you realize your mistake*".bold)
                 $skarmar_sound.volume = 50
                 $skarmar_sound.play
+                sleep(0.4)
                 writeLine("Saittam: skärmar. Skärmar, SKÄRMAR I BOTTEN!".cyan)
                 $skarmar_sound.volume = 80
                 $skarmar_sound.play
-                
+                sleep(1)
                 writeLine("*Saittam reveals himself to actually be Mattias\nand he throws his pen with full force at your skärm which is destroyed*".bold)
+                sleep(0.4)
                 writeLine("Mattias: PAPPER OCH PENNA! Inga digitala hjälpmedel".blue)
-                $skarmar_sound.play
-                $skarmar2_sound.play
+
                 writeLine("*You got the papper och penna weapon*".bold)
                 $japanlovania_song.volume = 35
             elsif $mattias_deaths > 0

@@ -20,6 +20,7 @@ $enemy_hurt_sound = Sound.new('audio/enemy_hurt.wav')
 $enemy_hurt_sound.volume = 5
 $blind_sound = Sound.new('audio/blind_sound.mp3')
 $eat_sound = Sound.new('audio/food_eating.wav')
+$skarmar2_sound = Sound.new('audio/Skarmar2.wav')
 
 # Enemy stats    [name, health, weapon, armor, worth]
 $goblin = ["Goblin", 30, 3, 3, 30]
@@ -89,3 +90,6 @@ $food_inventory = [$jarpar] #börja med jarpar
 $dead = false
 $blind_chance = 0
 $blinded_turns = 0
+
+$turns_blinded = -1 #TA BORT
+$mattias_fight_actions = 0 #TA BORT
