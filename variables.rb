@@ -72,3 +72,4 @@ $mattias_deaths = 0
 $inventory = [$default_weapon, $default_armor]
 $food_inventory = [$jarpar] #börja med jarpar
 $dead = false
+$blind_chance = 0

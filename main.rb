@@ -54,8 +54,8 @@ def fight(enemy)
                     eat()
                 end
             when "3"
-                blind_chance = rand(1..6)
-                if blind_chance != 1
+                $blind_chance = rand(1..6)
+                if $blind_chance != 1
                     writeLine("Successfully blinded enemy and avoided damage")
                     # Play sound
                     $blind_sound.play
@@ -71,7 +71,7 @@ def fight(enemy)
         end
 
         #Enemy attack
-        if enemy_health > 0 && blind_chance != 1
+        if enemy_health > 0 && $blind_chance != 1
             enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
