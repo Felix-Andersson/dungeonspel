@@ -425,7 +425,10 @@ def main()
                 writeLine("*Saittam reveals himself to actually be Mattias\nand he throws his pen with full force at your skärm which is destroyed*".bold)
                 sleep(0.4)
                 writeLine("Mattias: PAPPER OCH PENNA! Inga digitala hjälpmedel".blue)
-
+                $skarmar_sound.play
+                $skarmar2_sound.play
+                $skarmar2_sound.play
+                sleep(0.4)
                 writeLine("*You got the papper och penna weapon*".bold)
                 $japanlovania_song.volume = 35
             elsif $mattias_deaths > 0
