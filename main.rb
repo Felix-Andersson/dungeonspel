@@ -101,6 +101,7 @@ def fight(enemy)
         elsif $blinded_turns > 0
             writeLine("#{enemy[0]} attacked, but couldn't hit you because he was blinded. Truly unfortunate...")
             $blinded_turns -= 1
+            writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
             if $blinded_turns == 0
                 writeLine("#{enemy[0]} isn't blinded anymore!")
             else
