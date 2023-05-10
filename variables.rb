@@ -41,33 +41,33 @@ $bosses = [$troll, $skeleton_king, $orc_lord, $mattias]
 
 # Shop items
 #weapons    [name, damage, cost]
-$electron_cannon = ["Electron Cannon", 200, 400]
+$electron_cannon = ["Electron Cannon", 200, 450]
 $laser_pointer = ["Laser Pointer", 70, 250]
 $violation = ["Violation", 15, 70]
 $stick = ["Stick", 12, 30]
-$spear = ["Spear", 25, 100]
-$great_axe = ["Great Axe", 50, 180]
+$spear = ["Spear", 25, 150]
+$great_axe = ["Great Axe", 50, 210]
 #mattias weapons, story weapons
 $skarm = ["Skärm", 10000, 0]
 $papper_penna = ["Papper och Penna", 100, 0]
 
-$violations = ["Dumma dig", "Baen", "Bro finna regret", "No", "Yes", "Euugghh", "Ho Ho Ho"]
+$violations = ["Dumma dig", "Baen", "Bro finna regret", "Ääeh sitt ner i båten", "Who asked??", "Euugghh", "Ho Ho Ho"]
 
 $weapons = [$electron_cannon, $laser_pointer, $violation, $stick, $spear, $great_axe]
 
-#armor  [name, resistance, cost]
-$nti_shirt = ["NTI Shirt", 5, 80]
-$lader_dojor = ["Läder Dojor", 3, 40]
-$kevlar = ["Kevlar", 15, 150]
-$almost_naked_outfit = ["Almost Naked Outfit", 2, 30]
+#armor  [name, resistance, cost] (1/3 av armor divideras bort från attacken)
+$nti_shirt = ["NTI Shirt", 12, 150] #attack/4
+$lader_dojor = ["Läder Dojor", 10, 110] #attack/3
+$kevlar = ["Kevlar", 15, 250] #attack/5
+$muddy_outfit = ["Muddy Outfit", 5, 30] #attack/2
 
-$armors = [$nti_shirt, $lader_dojor, $kevlar, $almost_naked_outfit]
+$armors = [$nti_shirt, $lader_dojor, $kevlar, $muddy_outfit]
 
 #food   [name, health, cost]
-$panerad_fisk = ["Panerad Fisk", 20, 30]
-$meatball = ["Meatball", 15, 25]
-$jarpar = ["Jarpar", 10, 15]
-$knackebrod_frukost = ["Frukost Knäckebröd", 50, 60]
+$panerad_fisk = ["Panerad Fisk", 20, 60]
+$meatball = ["Meatball", 10, 30]
+$jarpar = ["Jarpar", 69, 200]
+$knackebrod_frukost = ["Frukost Knäckebröd", 25, 100]
 $feferoni = ["Feferoni", 5, 10]
 
 $food = [$panerad_fisk, $meatball, $jarpar, $knackebrod_frukost, $feferoni]
@@ -77,10 +77,10 @@ $name = ""
 $health = 100
 $max_health = 100
 $default_weapon = ["Rusty Sword", 10, 0]
-$default_armor = ["Half Naked Outfit", 1, 0]
+$default_armor = ["Half Naked Outfit", 1, 0] #attack/1
 $money = 0
 $enemies_killed = 0
-$bosses_killed = 4 # testing value, should be 0
+$bosses_killed = 0 # testing value, should be 0
 $mattias_deaths = 0
 #inventory  [weapons,armor]
 $inventory = [$default_weapon, $default_armor]

@@ -115,7 +115,7 @@ def fight(enemy)
 
         #Enemy attack
         if enemy_health > 0 && $blinded_turns <= 0
-            enemy_attack = ((enemy[2] + rand(-1..5)) / $inventory[1][1]).to_i
+            enemy_attack = ((enemy[2] + rand(-1..5)) / (0.3*$inventory[1][1]).ceil()).to_i #.ceil är ceiling, den avrundar uppåt alltså 18.2 => 19
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
             writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
@@ -134,7 +134,7 @@ def fight(enemy)
     if enemy_health < 1
         writeLine("\nThe #{enemy[0]} has fallen.".yellow.bold)
         $enemies_killed += 1
-        $money += enemy[4]
+        $money += enemy[4] + rand(-3..3)
         $blinded_turns = 0
         writeLine("Your money is #{$money}g".italic)
         if enemy[0] == "Troll" || enemy[0] == "Skeleton King" || enemy[0] == "Orc Lord"
