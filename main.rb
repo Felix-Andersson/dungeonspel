@@ -115,7 +115,7 @@ def fight(enemy)
 
         #Enemy attack
         if enemy_health > 0 && $blinded_turns <= 0
-            enemy_attack = ((enemy[2] + rand(-1..5)) / $inventory[1][1])
+            enemy_attack = ((enemy[2] + rand(-1..5)) / $inventory[1][1]).to_i
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
             writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
