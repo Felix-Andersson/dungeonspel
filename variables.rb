@@ -14,7 +14,6 @@ $leviathan_lagoon_song = Music.new('audio/leviathan_lagoon.mp3')
 $leviathan_lagoon_song.volume = 50
 $leviathan_lagoon_song.loop = true
 $japanlovania_song = Music.new('audio/japanlovania.mp3')
-$japanlovania_song.volume = 10
 $japanlovania_song.loop = true
 $attack_sound = Sound.new('audio/Hit_Hurt76.wav')
 $attack_sound.volume = 20
@@ -81,7 +80,7 @@ $default_weapon = ["Rusty Sword", 10, 0]
 $default_armor = ["Half Naked Outfit", 1, 0]
 $money = 0
 $enemies_killed = 0
-$bosses_killed = 0 # testing value, should be 0
+$bosses_killed = 4 # testing value, should be 0
 $mattias_deaths = 0
 #inventory  [weapons,armor]
 $inventory = [$default_weapon, $default_armor]
@@ -90,6 +89,3 @@ $food_inventory = [$jarpar] #börja med jarpar
 $dead = false
 $blind_chance = 0
 $blinded_turns = 0
-
-$turns_blinded = -1 #TA BORT
-$mattias_fight_actions = 0 #TA BORT

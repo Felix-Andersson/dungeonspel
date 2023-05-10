@@ -392,7 +392,7 @@ end
 # Hjälpfunktioner:     writeLine(), clearConsole(), isQuit(string), fight(array), displayPlayerStatus()
 #                      isShop(string), shop(), eat()
 # Loopar:              Använder isQuit while-loop för att se om användaren skrivit 'quit' i terminalen.
-#                      Kollar om boss fighten är 
+# 
 # Return:              inget
 # Exempel:             main() => Går igenom hela spelet
 
@@ -439,6 +439,7 @@ def main()
         if $bosses_killed >= 3
             if $mattias_deaths == 0
                 $leviathan_lagoon_song.fadeout(2000)
+                $japanlovania_song.volume = 10
                 $japanlovania_song.play
                 writeLine("*Jakob enters Saittam's room*".bold)
                 sleep(0.4)
