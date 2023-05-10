@@ -43,7 +43,7 @@ def writeLine(string)
     temp.each_char {|c| putc c ; sleep 0.02}
 end
 
-# Beskrivning:         Funktion som tar bort några rader för att skapa mellanrum. Används i början av programmet för att #separera det från en tidigare körning. 
+# Beskrivning:         Funktion som skriver ut några blanka rader för att skapa mellanrum. Används i början av programmet för att #separera det från en tidigare körning. 
 # Exempel:      
 
 def clearConsole()
