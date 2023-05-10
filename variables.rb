@@ -1,5 +1,7 @@
+# Variables.rb, här har vi alla våra globala variabler
 require 'ruby2d'
 
+# Beskrivning: Ljud hanteras av librariet ruby2d.
 # Sounds (max volym = 100)
 $skarmar_sound = Sound.new('audio/Skarmar.wav')
 $skarmar_sound.volume = 30
@@ -30,13 +32,11 @@ $shaman = ["Shaman", 15, 10, 0, 30]
 
 $enemies = [$goblin, $skeleton, $microsoft_bengt, $shaman]
 
-$enemy_level_bonus = 1
-
 # Boss stats     [name, health, weapon, armor, worth]
-$troll = ["Troll", 400, 18, 13, 200]
-$skeleton_king = ["Skeleton King", 300, 20, 3, 200]
-$orc_lord = ["Orc Lord", 525, 40, 9, 200]
-$mattias = ["Mattias", 1000, 25, 30, 1000000]
+$troll = ["Troll", 170, 18, 13, 100]
+$skeleton_king = ["Skeleton King", 100, 20, 3, 100]
+$orc_lord = ["Orc Lord", 150, 40, 9, 100]
+$mattias = ["Mattias", 1300, 25, 30, 1000000]
 
 $bosses = [$troll, $skeleton_king, $orc_lord, $mattias]
 
@@ -57,10 +57,10 @@ $violations = ["Dumma dig", "Baen", "Bro finna regret", "No", "Yes", "Euugghh", 
 $weapons = [$electron_cannon, $laser_pointer, $violation, $stick, $spear, $great_axe]
 
 #armor  [name, resistance, cost]
-$nti_shirt = ["NTI Shirt", 15, 80]
-$lader_dojor = ["Läder Dojor", 8, 40]
-$kevlar = ["Kevlar", 30, 150]
-$almost_naked_outfit = ["Almost Naked Outfit", 5, 30]
+$nti_shirt = ["NTI Shirt", 5, 80]
+$lader_dojor = ["Läder Dojor", 3, 40]
+$kevlar = ["Kevlar", 15, 150]
+$almost_naked_outfit = ["Almost Naked Outfit", 2, 30]
 
 $armors = [$nti_shirt, $lader_dojor, $kevlar, $almost_naked_outfit]
 
@@ -81,7 +81,7 @@ $default_weapon = ["Rusty Sword", 10, 0]
 $default_armor = ["Half Naked Outfit", 1, 0]
 $money = 0
 $enemies_killed = 0
-$bosses_killed = 3 # testing value, should be 0
+$bosses_killed = 0 # testing value, should be 0
 $mattias_deaths = 0
 #inventory  [weapons,armor]
 $inventory = [$default_weapon, $default_armor]

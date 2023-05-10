@@ -1,13 +1,27 @@
+# main.rb, vår main funktion och all gameplay-kod finns här. 
 require_relative 'variables'
 require_relative 'color_text'
 require 'ruby2d' #gem install ruby2d
 
-def isQuit(input)
+# Beskrivning:         Funktion som kollar om man vill quita...
+# Argument 1:          String
+# Return:              Returnerar false om string argumentet är lika med quit
+#                      annars returnerar false
+# Exempel:             if isQuit("quit") => false (går inte in i if-statmenten)
+
+def isQuit(input)                               
     if input.downcase == "quit"
         return false
     end
     return true
 end
+
+# Beskrivning:         Funktion som kollar om man vill gå in i shop...
+# Argument 1:          String
+# Return:              Returnerar true om string argumentet är lika med yes
+#                      annars returnerar false
+# Gets:                user_input är en string som kan vara "yes" eller "no" eller vilken string som helst som inte är "yes"
+# Exempel:             if isShop("yes") => true (går in i if-statmenten)
 
 def isShop(user_input)
     if user_input.downcase == "yes"
@@ -16,8 +30,15 @@ def isShop(user_input)
     return false
 end
 
+# Beskrivning:         Funktion som hanterar strider, fienden slumpas fram ur en tvådimensionell array. 
+#                      Man har ett antal alternativ och resultatet för ett val har viss slumpmässighet. 
+# Argument 1:          Array
+# Gets:                user_input som kan vara antingen 1:fight, 2:eat, 3:blind eller 4:quit
+# Return:              inget
+# Exempel:             fight($goblin) -> $goblin=enemy
+
 def fight(enemy)
-    enemy_health = enemy[1]*$enemy_level_bonus
+    enemy_health = enemy[1]
     while enemy_health > 0 && $health > 0
         $blind_chance = 0
         displayPlayerStatus()
@@ -94,7 +115,7 @@ def fight(enemy)
 
         #Enemy attack
         if enemy_health > 0 && $blinded_turns <= 0
-            enemy_attack = (enemy[2] - $inventory[1][1] + rand(-1..5))*$enemy_level_bonus
+            enemy_attack = ((enemy[2] + rand(-1..5)) / (0.3*$inventory[1][1]))
             $health -= enemy_attack
             writeLine("#{enemy[0]} attacked, dealing #{enemy_attack} damage!".bg_red)
             writeLine("#{enemy[0]}'s Health: #{enemy_health}".bg_green)
@@ -114,12 +135,11 @@ def fight(enemy)
         writeLine("\nThe #{enemy[0]} has fallen.".yellow.bold)
         $enemies_killed += 1
         $money += enemy[4]
+        $blinded_turns = 0
         writeLine("Your money is #{$money}g".italic)
         if enemy[0] == "Troll" || enemy[0] == "Skeleton King" || enemy[0] == "Orc Lord"
             $bosses_killed += 1
-            $enemy_level_bonus += 0.2
             writeLine("You have defeated a boss monster!".bold)
-            writeLine("The world level has risen, enemies will now have increased damage and health.".bold.red)
         elsif enemy[0] == "Mattias"
             writeLine("Your money is #{$money}g".italic)
             $bosses_killed += 1
@@ -136,6 +156,13 @@ def fight(enemy)
 
     writeLine("Enemies killed: #{$enemies_killed}".italic)
 end
+
+# Beskrivning:         Funktion som skriver ut i terminalen alla element i en array. Dessa element kan
+#                      väljas med en gets för att tas bort från arrayen.   
+# Gets:                user_input som kan vara en integer mellan 1 och array.length
+# Exempel:             eat() => 1. Jarpar    2. Köttbullar   3. Pannkaka
+#                      user_input => 1
+#                      arrayen har då kvar [$kottbullar, $pannkaka]
 
 def eat()
     writeLine("Which food would you like to consume?".bg_green.bold)
@@ -164,6 +191,10 @@ def eat()
     $food_inventory.delete_at(user_input-1)
 
 end
+
+# Beskrivning:         Funktion som hanterar alla köp. Man kan köpa vapen, rustning och mat. Vapen och rustning ersätter de gamla men maten sparas på rad i ett inventory och tas bort när de konsumeras.   
+# Gets:                user_input kan vara 1:weapons, 2:Armor, 3:Food och quit
+# Exempel:             shop() -> user_input=1, -> user_input= 1 -> köp electron_cannon
 
 def shop()
     user_input = ""
@@ -206,6 +237,15 @@ def shop()
     end
 end
 
+# Beskrivning:         Funktion som visar vilka vapen man kan köpa...
+# Argument 1:          Ingen
+# Loop:                While-loop med hjälpfunktion - kollar om hjälpfunktionen är sann
+# Return:              Ingen
+#                      
+# Exempel:             showWeapons()
+#                      om isQuit(user_input) är true alltså om användaren inte har skrivit "quit" i terminalen
+#                      writeline() funktionen körs samt kör puts med strängarna som står
+#                      Går även in i if-satserna och kollar om dessa är sanna
 def showWeapons()
     user_input = ""
     while isQuit(user_input)
@@ -240,6 +280,16 @@ def showWeapons()
         end
     end
 end
+
+# Beskrivning:         Funktion som visar vilken armor man kan köpa...
+# Argument 1:          Ingen
+#Loop:                 While-loop med hjälpfunktion - kollar om hjälpfunktionen är sann
+# Return:              Ingen
+#                      
+# Exempel:             showArmors()
+#                      om isQuit(user_input) är true alltså om användaren inte har skrivit "quit" i terminalen
+#                      writeline() funktionen körs samt kör puts med strängarna som står
+#                      Går även in i if-satserna och kollar om dessa är sanna
 
 def showArmors()
     user_input = ""
@@ -276,6 +326,11 @@ def showArmors()
     end
 end
 
+# Beskrivning:         Funktion som visar maten man har
+# Argument 1:          Inget
+# Loop:                 While-loop med hjälpfunktion - kollar om hjälpfunktionen är sann
+# Return                Ingen      
+
 def showFood()
     user_input = ""
     while isQuit(user_input)
@@ -311,6 +366,13 @@ def showFood()
     end
 end
 
+# Beskrivning:         Funktion som skriver ut i terminalen variablerna health samt weapon och armor ur en 2-dimensionell array.
+#                      Loopar även igenom food_inventory och printar varje element till terminalen.
+# Exempel:             displayPlayerStatus() => 
+#                      Health: 50/100
+#                      Weapon: Svärd, Damage: 15
+#                      Armor: Läderskor, Defence: 5
+#                      Food: 1. Köttbullar  2. Pasta
 def displayPlayerStatus()
     writeLine("\nPlayer status:".bold)
     puts "Health: #{$health}/100".italic
@@ -325,9 +387,22 @@ def displayPlayerStatus()
     puts ""
 end
 
+# Beskrivning:         Main funktionen som inkluderar storyn i spelet genom att använda sig av hjälpfunktioner
+# Argument 1:          ingen
+# Hjälpfunktioner:     writeLine(), clearConsole(), isQuit(string), fight(array), displayPlayerStatus()
+#                      isShop(string), shop(), eat()
+# Loopar:              Använder isQuit while-loop för att se om användaren skrivit 'quit' i terminalen.
+# Return:              inget
+# Exempel:             main() => Går igenom hela spelet
+
 def main()
     clearConsole() #Funktionen finns i color_text
     user_input = ""
+
+    puts "Mål:".yellow
+    puts "För att vinna spelet måste du besegra sista bossen, vilket kommer visa sig"
+    puts "efter de 3 små bossarna. Under spelets gång kommer du att möta fiender och"
+    puts "tjäna pengar, dessa pengar kan användas för att köpa vapen, armor och mat i shoppen.\n"
 
     puts "Instruktioner:".yellow
     puts "För att utföra handlingar så skrivs nummer (ex 1, 2, 3) i terminalen."
